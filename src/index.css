@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    --dark: hsl(208, 37%, 20%);
+    --light: hsla(0, 0%, 100%, 0.87);
+    --blue: hsl(210, 100%, 50%);
+    --violet: hsl(277, 71%, 52%);
+    --violet2: hsla(273, 94%, 68%, 0.302);
+}
+
+[data-theme='light'] {
+    --text: hsl(208, 37%, 20%);
+    --bg-color: hsla(0, 0%, 100%, 0.87);
+    --gray-light: hsl(0, 0%, 94%);
+    --gray-light2: hsl(0, 0%, 91%);
+    --gray: hsl(0, 1%, 75%);
+}
+
+[data-theme='dark'] {
+    --text: hsla(0, 0%, 100%, 0.87);
+    --bg-color: hsl(0, 0%, 9%);
+    --gray-light: hsl(0, 0%, 20%);
+    --gray-light2: hsl(0, 0%, 20%);
+    --gray: hsl(0, 0%, 41%);
+}
+
+html {
+    color: var(--text);
+    background-color: var(--bg-color);
+}
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+input:focus {
+    border: none;
+    outline: none;
+}
+
+a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: #535bf2;
+}
+
+input {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    /* background-color: #1a1a1a; */
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: #646cff;
+}
+
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+#root {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
