@@ -4,10 +4,21 @@ import { BsFillPlayFill, BsFillStopFill } from 'react-icons/bs'
 import { Definition } from '../types'
 import Info from './Info'
 
-const Word: FC<{
+interface WordProps {
+    isConnected: boolean
     isFetching: boolean
     content: Definition | undefined
-}> = ({ isFetching, content }) => {
+}
+
+const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
+    if (!isConnected)
+        return (
+            <Info
+                name='Network connection error'
+                message='Check your network connection and refresh the tab.'
+            />
+        )
+
     if (isFetching)
         return (
             <Info
@@ -21,7 +32,7 @@ const Word: FC<{
             <Info
                 name='No definition has been found'
                 message='Sorry, we could not find any definitions for the word you
-            were looking for.'
+        were looking for.'
             />
         )
 
@@ -39,13 +50,15 @@ const Word: FC<{
             <div className='mb-4 flex flex-col'>
                 <div className='flex items-center justify-between'>
                     <div>
-                        {/* <h4 className='mr-4 mb-1 text-2xl'></h4> */}
-                        <div className='relative tracking-[1.75px] text-[var(--violet)]'>
-                            <span className='mr-4'>
-                                UK: {content.phonetics[0].transcription}
+                        <h4 className='mr-4 mb-1 text-2xl'>{content.word}</h4>
+                        <div className='relative tracking-[1.75px]'>
+                            UK:{' '}
+                            <span className='mr-4 text-[var(--violet)]'>
+                                {content.phonetics[0].transcription}
                             </span>
-                            <span>
-                                US: {content.phonetics[1].transcription}
+                            US:{' '}
+                            <span className='text-[var(--violet)]'>
+                                {content.phonetics[1].transcription}
                             </span>
                         </div>
                     </div>

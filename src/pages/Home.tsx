@@ -5,11 +5,13 @@ import Header from '../components/Header'
 import SearchInput from '../components/SearchInput'
 import Word from '../components/Word'
 import { keys } from '../data'
+import useConnection from '../hooks/useConnection'
 import useFetch from '../hooks/useFetch'
 
 const Home = () => {
     const previous_search = localStorage.getItem(keys.previous_search) ?? ''
     const [word, setWord] = useState(previous_search)
+    const is_connected = useConnection()
     const { data, refetch, is_fetching } = useFetch(word)
 
     const throttledRefetch = useMemo(() => throttle(refetch, 750), [refetch])
@@ -32,7 +34,11 @@ const Home = () => {
                 setWord={setWord}
                 handleSubmit={handleSubmit}
             />
-            <Word isFetching={is_fetching} content={data} />
+            <Word
+                isConnected={is_connected}
+                isFetching={is_fetching}
+                content={data}
+            />
         </>
     )
 }
