@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { BsFillPlayFill, BsFillStopFill } from 'react-icons/bs'
 
 import { Definition } from '../types'
@@ -7,10 +7,10 @@ import Info from './Info'
 interface WordProps {
     isConnected: boolean
     isFetching: boolean
-    content: Definition | undefined
+    data: Definition | undefined
 }
 
-const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
+const Word: FC<WordProps> = ({ isConnected, isFetching, data }) => {
     if (!isConnected)
         return (
             <Info
@@ -27,7 +27,7 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
             />
         )
 
-    if (!content)
+    if (!data)
         return (
             <Info
                 name='No definition has been found'
@@ -45,20 +45,22 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
             audio_ref.current[is_playing ? 'pause' : 'play']()
     }
 
+    useEffect(() => console.log(data))
+
     return (
         <div className='mt-8'>
             <div className='mb-4 flex flex-col'>
                 <div className='flex items-center justify-between'>
                     <div>
-                        <h4 className='mr-4 mb-1 text-2xl'>{content.word}</h4>
+                        <h4 className='mr-4 mb-1 text-2xl'>{data.word}</h4>
                         <div className='relative tracking-[1.75px]'>
                             UK:{' '}
                             <span className='mr-4 text-[var(--violet)]'>
-                                {content.phonetics[0].transcription}
+                                {data.phonetics[0].transcription}
                             </span>
                             US:{' '}
                             <span className='text-[var(--violet)]'>
-                                {content.phonetics[1].transcription}
+                                {data.phonetics[1].transcription}
                             </span>
                         </div>
                     </div>
@@ -66,7 +68,7 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
                         <audio
                             ref={audio_ref}
                             onEnded={() => setIsPlaying(false)}
-                            src={content.phonetics[0].pronunciation}
+                            src={data.phonetics[0].pronunciation}
                         />
                         <button
                             className='flex h-12 w-12 items-center justify-center rounded-full bg-[var(--violet-2)] p-0 text-2xl text-[var(--violet)]'
@@ -80,17 +82,25 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
                         </button>
                     </div>
                 </div>
-                {content.meanings?.map((meaning, index) => {
+                {data.meanings?.map((meaning, index) => {
                     return (
                         <div key={index} className='my-4 mx-0'>
-                            <div className='mb-2 flex'>
+                            <div className='flex'>
                                 <h4 className='italic'>
-                                    {meaning?.partOfSpeech}
+                                    {meaning.partOfSpeech}
                                 </h4>
                                 <div className='ml-2.5 h-[1px] flex-[1] self-center justify-self-stretch bg-[var(--gray-light2)]' />
                             </div>
-                            <h4 className='mb-2 font-medium text-[#9e9e9e]'>
-                                Meaning
+                            {meaning.synonym !== '' && (
+                                <h4 className='my-2 font-medium text-[#9e9e9e]'>
+                                    Synonym:{' '}
+                                    <span className='text-[#6d6d6d]'>
+                                        {meaning.synonym}
+                                    </span>
+                                </h4>
+                            )}
+                            <h4 className='my-2 font-medium text-[#9e9e9e]'>
+                                Meaning:
                             </h4>
                             <ul className='list-none pl-8'>
                                 {meaning?.definitions?.map(
@@ -105,6 +115,9 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, content }) => {
                                         )
                                 )}
                             </ul>
+                            <h4 className='my-2 font-medium text-[#9e9e9e]'>
+                                Examples:
+                            </h4>
                             {meaning?.definitions.length > 0 && (
                                 <div className='mt-4'>
                                     {meaning?.definitions?.map(

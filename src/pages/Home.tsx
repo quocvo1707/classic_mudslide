@@ -37,7 +37,7 @@ const Home = () => {
             <Word
                 isConnected={is_connected}
                 isFetching={is_fetching}
-                content={data}
+                data={data}
             />
         </>
     )

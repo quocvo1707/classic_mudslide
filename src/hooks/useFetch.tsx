@@ -1,13 +1,19 @@
+import { isWordCached, updateCachedWords } from '../utils/cache'
+
+import { load } from 'cheerio'
 import { useQuery } from 'react-query'
-import analyseHtml from '../api/analyse'
 import fetchRawContent from '../api/fetch'
 import parseHtml from '../api/parse'
 import { keys } from '../data'
-import useCache from './useCache'
+
+const isNotDefinitionPage = (html: string) => {
+    const $ = load(html)
+    const is_not_definition_page = !!$('dpron-i').length
+
+    return is_not_definition_page
+}
 
 const useFetch = (word: string) => {
-    const { updateCachedWords, isWordCached } = useCache()
-
     const fetchWordData = async () => {
         const { is_cached, cached_word } = isWordCached(word)
 
@@ -18,7 +24,7 @@ const useFetch = (word: string) => {
         }
 
         const raw_html = await fetchRawContent(word)
-        const is_not_found = analyseHtml(raw_html)
+        const is_not_found = isNotDefinitionPage(raw_html)
 
         if (is_not_found) return undefined
 
