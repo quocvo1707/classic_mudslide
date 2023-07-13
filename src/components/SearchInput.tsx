@@ -32,7 +32,7 @@ const SearchInput: FC<SearchInputProps> = (props) => {
 
     return (
         <form
-            className='relative my-0 mx-auto flex w-full max-w-lg items-center rounded-xl bg-[var(--gray-light)]'
+            className='relative mx-auto my-0 flex w-full max-w-lg items-center rounded-xl bg-[var(--gray-light)]'
             onSubmit={handleSubmit}
         >
             <input

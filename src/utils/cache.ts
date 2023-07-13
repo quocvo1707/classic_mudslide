@@ -12,7 +12,7 @@ const getCachedWords = () => {
     return cached_words
 }
 
-export function updateCachedWords(word: string, data: Definition) {
+export const updateCachedWords = (word: string, data: Definition) => {
     const cached_words = getCachedWords()
     const { is_cached } = isWordCached(word)
 
@@ -32,7 +32,7 @@ export function updateCachedWords(word: string, data: Definition) {
     )
 }
 
-export function isWordCached(word: string) {
+export const isWordCached = (word: string) => {
     const cached_words = getCachedWords()
     const word_cached_index = cached_words.findIndex((el) => el.word === word)
 

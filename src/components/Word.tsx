@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useRef, useState } from 'react'
 import { BsFillPlayFill, BsFillStopFill } from 'react-icons/bs'
 
 import { Definition } from '../types'
@@ -45,14 +45,12 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, data }) => {
             audio_ref.current[is_playing ? 'pause' : 'play']()
     }
 
-    useEffect(() => console.log(data))
-
     return (
         <div className='mt-8'>
             <div className='mb-4 flex flex-col'>
                 <div className='flex items-center justify-between'>
                     <div>
-                        <h4 className='mr-4 mb-1 text-2xl'>{data.word}</h4>
+                        <h4 className='mb-1 mr-4 text-2xl'>{data.word}</h4>
                         <div className='relative tracking-[1.75px]'>
                             UK:{' '}
                             <span className='mr-4 text-[var(--violet)]'>
@@ -84,7 +82,7 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, data }) => {
                 </div>
                 {data.meanings?.map((meaning, index) => {
                     return (
-                        <div key={index} className='my-4 mx-0'>
+                        <div key={index} className='mx-0 my-4'>
                             <div className='flex'>
                                 <h4 className='italic'>
                                     {meaning.partOfSpeech}
@@ -94,7 +92,7 @@ const Word: FC<WordProps> = ({ isConnected, isFetching, data }) => {
                             {meaning.synonym !== '' && (
                                 <h4 className='my-2 font-medium text-[#9e9e9e]'>
                                     Synonym:{' '}
-                                    <span className='text-[#6d6d6d]'>
+                                    <span className='lowercase text-[#6d6d6d]'>
                                         {meaning.synonym}
                                     </span>
                                 </h4>

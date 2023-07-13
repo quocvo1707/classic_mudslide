@@ -16,6 +16,13 @@ const removeExtraChars = (text: string) => {
     return formattedText
 }
 
+const lowerCaseFirstCharacter = (text: string) => {
+    const formattedText = `${text.charAt(0).toLowerCase() + text.slice(1)}`
+        .replace(/[:;.]/g, '')
+        .replace(/\s+([.!?])/g, '$1')
+    return formattedText
+}
+
 const parseHtml = (html: string): Definition => {
     const $ = load(html)
     const word = $('.headword .dhw').first().text()
@@ -53,13 +60,15 @@ const parseHtml = (html: string): Definition => {
                           .map((_, el) => $(el).text())
                           .get()
                           .join(', ')}`
-            const synonym = head.find('.dsense_gw').text().toLowerCase()
+            const synonym = head.find('.dsense_gw').text()
             const definitions = body
                 .find('.ddef_block')
                 .map((_, el) => {
                     const domain = $(el).find('.ddef-info .dgram').text()
                     const level = $(el).find('.ddef-info .epp-xref').text()
-                    const definition = $(el).find('.ddef_d').text()
+                    const definition = lowerCaseFirstCharacter(
+                        $(el).find('.ddef_d').text()
+                    )
                     const examples = $(el)
                         .find('.ddef_b .deg')
                         .map((_, el) => $(el).text())

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,10 +13,6 @@
 }
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-
     --dark: hsl(208, 37%, 20%);
     --light: hsla(0, 0%, 100%, 0.87);
     --blue: hsl(210, 100%, 50%);
@@ -38,13 +36,10 @@
     --gray: hsl(0, 0%, 41%);
 }
 
-html {
-    color: var(--text);
-    background-color: var(--bg-color);
-}
-
 body {
     font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--text);
+    background-color: var(--bg-color);
     display: flex;
     min-height: 100vh;
     padding: 1rem;
@@ -78,7 +73,6 @@ button {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    /* background-color: #1a1a1a; */
     cursor: pointer;
     transition: border-color 0.25s;
 }

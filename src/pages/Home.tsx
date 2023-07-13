@@ -13,7 +13,6 @@ const Home = () => {
     const [word, setWord] = useState(previous_search)
     const is_connected = useConnection()
     const { data, refetch, is_fetching } = useFetch(word)
-
     const throttledRefetch = useMemo(() => throttle(refetch, 750), [refetch])
 
     const handleSubmit = (event: FormEvent) => {

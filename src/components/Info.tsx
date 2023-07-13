@@ -5,7 +5,7 @@ const Info: FC<{
     message: string
 }> = ({ name, message }) => {
     return (
-        <div className='my-0 mx-auto mt-8 w-full text-center'>
+        <div className='mx-auto my-0 mt-8 w-full text-center'>
             <h4 className='mb-4'>{name}</h4>
             <p>{message}</p>
         </div>
